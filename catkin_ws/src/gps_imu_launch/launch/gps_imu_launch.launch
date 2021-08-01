@@ -1,0 +1,16 @@
+<launch>
+<node pkg="nmea_navsat_driver" type="nmea_serial_driver" name="gps_node" args="_port:=/dev/ttyUSB0 _baud:=9600 _frame_id:=base_gps" >
+    <remap from="/fix" to="gps/fix"/>
+</node>
+    <!-- <param name="port" type="string" value="/dev/ttyUSB0" />
+    <param name="baud" type="int" value="9600" />
+    <param name="frame_id" type="string" value="base_gps" /> -->
+<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="gps_transform" args="-0.055 -0.095 0 0 0 0 base_link base_gps" /> -->
+
+
+<!-- <remap from="imu/data" to="/imu"/> -->
+<include file="$(find razor_imu_9dof)/launch/razor-pub.launch" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="imu_transform" args="0 0.1 0 0 0 3.14159 base_link base_imu_link" />
+
+</launch>
