@@ -55,7 +55,11 @@ class NMEAMessageHandler(socketserver.DatagramRequestHandler):
                 continue
 
             try:
-                self.server.driver.add_sentence(line, self.server.frame_id)
+                nmea_str = line.decode('ascii')
+                self.server.driver.add_sentence(nmea_str, self.server.frame_id)
+            except UnicodeError as e:
+                rospy.logwarn("Skipped reading a line from the UDP socket because it could not be "
+                              "decoded as an ASCII string. The bytes were {0}".format(line))
             except ValueError:
                 rospy.logwarn(
                     "ValueError, likely due to missing fields in the NMEA "
@@ -73,10 +77,13 @@ def main():
 
     Creates a ROS NMEA Driver and feeds it NMEA sentence strings from a UDP socket.
 
-    ROS parameters:
-        ~ip (str): IPV4 address of the socket to open.
-        ~port (int): Local port of the socket to open.
-        ~timeout (float): The time out period for the socket, in seconds.
+    :ROS Parameters:
+        - ~ip (str)
+            IPV4 address of the socket to open.
+        - ~port (int)
+            Local port of the socket to open.
+        - ~timeout (float)
+            The time out period for the socket, in seconds.
     """
     rospy.init_node('nmea_socket_driver')
 

@@ -45,9 +45,11 @@ def main():
 
     Creates a ROS NMEA Driver and feeds it NMEA sentence strings from a serial device.
 
-    ROS parameters:
-        ~port (str): Path of the serial device to open.
-        ~baud (int): Baud rate to configure the serial device.
+    :ROS Parameters:
+        - ~port (str)
+            Path of the serial device to open.
+        - ~baud (int)
+            Baud rate to configure the serial device.
     """
     rospy.init_node('nmea_serial_driver')
 
@@ -63,7 +65,11 @@ def main():
             while not rospy.is_shutdown():
                 data = GPS.readline().strip()
                 try:
-                    driver.add_sentence(data, frame_id)
+                    nmea_str = data.decode('ascii')
+                    driver.add_sentence(nmea_str, frame_id)
+                except UnicodeError as e:
+                    rospy.logwarn("Skipped reading a line from the serial device because it could not be "
+                                  "decoded as an ASCII string. The bytes were {0}".format(data))
                 except ValueError as e:
                     rospy.logwarn(
                         "Value error, likely due to missing fields in the NMEA message. "
