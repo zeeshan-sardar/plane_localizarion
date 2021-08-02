@@ -22,3 +22,11 @@ sudo chmod 666 /dev/ttyUSB0
 rosrun nmea_navsat_driver nmea_serial_driver _port:=/dev/ttyUSB0 _baud:=9600
 
 ```
+
+### GPS Logging
+To log GPS, there is a separate ROS node `gps_log.py` in the package `data_log`. Follow the instruction below to log the GPS in `.csv` file. This file is placed in the base directory i.e. `plane_localization` and automatically named `gps current data + time.csv`.
+
+ ```
+ sudo chmod +x src/data_log/gps_log.py 
+ rosrun data_log gps_log.py
+ ```
