@@ -1,24 +1,48 @@
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package nmea_navsat_driver
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Change log for nmea_navsat_driver package
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+0.6.1 (2021-01-16)
+------------------
+* Decode lines from the UDP server before passing them to the driver (`#122 <https://github.com/evenator/nmea_navsat_driver/issues/122>`_)
+* Fix `#115 <https://github.com/evenator/nmea_navsat_driver/issues/115>`_ Decoding errors. (`#116 <https://github.com/evenator/nmea_navsat_driver/issues/116>`_)
+* Fix UTC time parsing `#105 <https://github.com/evenator/nmea_navsat_driver/issues/105>`_ (`#106 <https://github.com/evenator/nmea_navsat_driver/issues/106>`_)
+* Fix lint in doc config python (`#117 <https://github.com/evenator/nmea_navsat_driver/issues/117>`_)
+* Contributors: Ed Venator
+
+0.6.0 (2020-09-26)
+------------------
+* Update to Python3 for ROS Noetic (`#113 <https://github.com/ros-drivers/nmea_navsat_driver/issues/113>`_)
+* Fix valid_fix check (`#111 <https://github.com/ros-drivers/nmea_navsat_driver/issues/111>`_) (`#112 <https://github.com/ros-drivers/nmea_navsat_driver/issues/112>`_)
+* Add Sphinx and rosdoc configuration (`#93 <https://github.com/ros-drivers/nmea_navsat_driver/issues/93>`_)
+* Add missing dependency on tf (`#102 <https://github.com/ros-drivers/nmea_navsat_driver/issues/102>`_)
+* Trim whitespace in nmea_topic_driver (`#98 <https://github.com/ros-drivers/nmea_navsat_driver/issues/98>`_)
+* Use a regex to split tokens in parser (`#87 <https://github.com/ros-drivers/nmea_navsat_driver/issues/87>`_)
+* Fix PEP8 Violations (`#68 <https://github.com/ros-drivers/nmea_navsat_driver/issues/68>`_)
+* Remove automatic prefixing of forward slash to frame_id. (`#33 <https://github.com/ros-drivers/nmea_navsat_driver/issues/33>`_/`#57 <https://github.com/ros-drivers/nmea_navsat_driver/issues/57>`_)
+* Add support for IMU aided GPS systems (`#30 <https://github.com/ros-drivers/nmea_navsat_driver/issues/30>`_/`#58 <https://github.com/ros-drivers/nmea_navsat_driver/issues/58>`_)
+* Publish heading (`#25 <https://github.com/ros-drivers/nmea_navsat_driver/issues/25>`_)
+* Improve Covariance Estimation (`#46 <https://github.com/ros-drivers/nmea_navsat_driver/issues/46>`_)
+* Remove Mean Sea Level compensation (`#36 <https://github.com/ros-drivers/nmea_navsat_driver/issues/36>`_)
+* Contributors: Ed Venator, Maximilian von Unwerth
 
 0.5.2 (2020-02-23)
 ------------------
-* Use Python's SocketServer rather than low level socket APIs. (`#92 <https://github.com/evenator/nmea_navsat_driver/issues/92>`_)
+* Use Python's SocketServer rather than low level socket APIs. (`#92 <https://github.com/ros-drivers/nmea_navsat_driver/issues/92>`_)
   This simplifies code and makes it easier to add TCP support in the future. The ``buffer_size`` parameter is no longer necessary because this is an internal detail of UDPServer.
-* Add documentation that passes ``pydocstyle``. (`#88 <https://github.com/evenator/nmea_navsat_driver/issues/88>`_)
-* Add an Option to Use GNSS Time and Improve Time Parsing. (`#79 <https://github.com/evenator/nmea_navsat_driver/issues/79>`_)
+* Add documentation that passes ``pydocstyle``. (`#88 <https://github.com/ros-drivers/nmea_navsat_driver/issues/88>`_)
+* Add an Option to Use GNSS Time and Improve Time Parsing. (`#79 <https://github.com/ros-drivers/nmea_navsat_driver/issues/79>`_)
 
   - Add an optional parameter ``use_GNSS_time`` to use the time from the GPS sentences for ROS message time instead of using system time.
   - Improve GPS time parsing to support nanosecond precision on devices that support it.
   - Improve GPS time parsing to use RMC message for date when available.
   - Improve GPS time parsing to resolve ambiguities in date and century using system time.
-* Refactor all nodes into entrypoint scripts. (`#76 <https://github.com/evenator/nmea_navsat_driver/issues/76>`_).
+* Refactor all nodes into entrypoint scripts. (`#76 <https://github.com/ros-drivers/nmea_navsat_driver/issues/76>`_).
   This will reduce the difference between ROS 1 and ROS 2 code, because ROS 2 uses Python entry points to install executables.
-* Fix PEP8 Violations (`#68 <https://github.com/evenator/nmea_navsat_driver/issues/68>`_). All Python modules and scripts now pass ``pycodestyle --max-line-length 120 src/libnmea_navsat_driver/ scripts/*``
-* Add ``nmea_serial_driver`` launch file (`#60 <https://github.com/evenator/nmea_navsat_driver/issues/60>`_)
-* Removed ``roslint`` as build depend. (`#59 <https://github.com/evenator/nmea_navsat_driver/issues/59>`_)
-  ``roslint`` was accidentally re-added as a build dependency in `#25 <https://github.com/evenator/nmea_navsat_driver/issues/25>`_.
+* Fix PEP8 Violations (`#68 <https://github.com/ros-drivers/nmea_navsat_driver/issues/68>`_). All Python modules and scripts now pass ``pycodestyle --max-line-length 120 src/libnmea_navsat_driver/ scripts/*``
+* Add ``nmea_serial_driver`` launch file (`#60 <https://github.com/ros-drivers/nmea_navsat_driver/issues/60>`_)
+* Removed ``roslint`` as build depend. (`#59 <https://github.com/ros-drivers/nmea_navsat_driver/issues/59>`_)
+  ``roslint`` was accidentally re-added as a build dependency in `#25 <https://github.com/ros-drivers/nmea_navsat_driver/issues/25>`_.
 * Contributors: Ed Venator, Ryan Govostes, Tony Baltovski, Xiangyang Zhi, diasdm
 
 0.5.1 (2018-12-30)
@@ -31,7 +55,7 @@ Changelog for package nmea_navsat_driver
 * Add GLONASS support
 * Updated driver to accept status of 9 which some novatel recievers report for a WAAS (SBAS) fix.
   See http://www.novatel.com/support/known-solutions/which-novatel-position-types-correspond-to-the-gga-quality-indicator/
-* Contributors: Ed Venator, Edward Venator, Eric Perko, Loy, Mike Purvis, Patrick Barone, Timo Röhling, Vikrant Shah
+* Contributors: Ed Venator, Eric Perko, Loy, Mike Purvis, Patrick Barone, Timo Röhling, Vikrant Shah
 
 0.5.0 (2015-04-23)
 ------------------
